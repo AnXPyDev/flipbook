@@ -60,6 +60,7 @@ class Entity {
   tick() {}
   draw(ctx) {}
   mouse_down(mpos) {}
+  mouse_up(mpos) {}
   check_mouse(mpos) {
     if (mpos.x >= this.position.x - this.size.x / 2
       && mpos.x <= this.position.x + this.size.x / 2
@@ -69,7 +70,7 @@ class Entity {
     }
     return false;
   }
-  mouse_hover() {}
+  mouse_hover(mpos) {}
   on_deactivate() {}
   on_activate() {}
 }
@@ -199,6 +200,7 @@ class ImageEnt extends Entity {
       }
       this.hovered_over = false;
     }
+    return this.hovered_over;
   }
 }
 
@@ -602,9 +604,9 @@ class Slide {
   mouse_down(mpos) {
     mpos = this.get_mpos(mpos);
     this.entities.sort(function(a, b) {
-      if (a.mdepth < b.mdepth) {
+      if (a.mdepth > b.mdepth) {
         return -1;
-      } else if (a.mdepth > b.mdepth) {
+      } else if (a.mdepth < b.mdepth) {
         return 1;
       }
     });
@@ -656,11 +658,17 @@ class Sprite {
     }
   }
 
-  upgrade(callback = function() {}) {
-    if (this.index + 1 >= this.paths.length) {
+  upgrade(callback = function() {}, level = this.index + 1) {
+    if (level == "max") {
+      level = this.paths.length - 1;
+    }
+    if (level + 1 > this.paths.length) {
       return;
     }
-    this.index++;
+    if (level == this.index) {
+      return;
+    }
+    this.index = level;
     this.load_image = new Image();
     this.load_image.src = this.paths[this.index];
     this.upgrading = true;
@@ -710,6 +718,67 @@ class Loader {
   }
 }
 
+class Button extends Entity {
+  constructor(sprite, config) {
+    super();
+    this.sprite = sprite;
+    this.position = config.position && config.position.copy() || V2();
+    this.size = config.size && config.size.copy() || V2();
+
+    this.default_size = this.size.copy();
+    this.default_position = this.position.copy();
+
+    this.depth = config.depth || 100;
+    this.mdepth = config.mdepth || this.depth;
+    this.hover_animation = config.hoverAnimation;
+    this.hover_animation && this.hover_animation.init(this);
+    this.unhover_animation = config.unhoverAnimation;
+    this.unhover_animation && this.unhover_animation.init(this);
+    this.hovered_over = false;
+    this.rotation = config.rotation || 0;
+
+    this.on_press = config.onPress || function() {};
+  }
+
+  tick() {
+    this.hover_animation && this.hover_animation.update();
+    this.unhover_animation && this.unhover_animation.update();
+  }
+
+  draw(ctx) {
+    ctx.save();
+    ctx.translate(this.position.x, this.position.y);
+    ctx.rotate(this.rotation);
+    ctx.drawImage(this.sprite.image, -this.size.x / 2, -this.size.y / 2, this.size.x, this.size.y);
+    ctx.restore();
+  }
+
+  mouse_down(mpos) {
+    if (this.check_mouse(mpos)) {
+      this.on_press();
+    }
+  }
+
+  mouse_hover(mpos) {
+    if (this.check_mouse(mpos)) {
+      if (!this.hovered_over) {
+        this.hover_animation && this.hover_animation.start();
+        this.unhover_animation && this.unhover_animation.stop();
+      }
+      this.hovered_over = true;
+    } else {
+      if (this.hovered_over) {
+        this.hover_animation && this.hover_animation.stop();
+        this.unhover_animation && this.unhover_animation.start();
+      }
+      this.hovered_over = false;
+    }
+    return this.hovered_over;
+  }
+  
+
+}
+
 let slides = [];
 let entities = [];
 let activeslide = null;
@@ -752,6 +821,10 @@ function tick() {
     return;
   }
 
+  for (let i = 0; i < entities.length; i++) {
+    entities[i].tick();
+  }
+
   for (let i = 0; i < slides.length; i++) {
     slides[i].weak_tick();
   }
@@ -772,7 +845,7 @@ function draw() {
   ctx.fillRect(0,0, canvas.width, canvas.height); 
 
   ctx.save()
-  ctx.translate(Math.round(env.camera.position.x + canvas.width / 2), Math.round(env.camera.position.y + canvas.height / 2));
+  ctx.translate(Math.round(-env.camera.position.x + canvas.width / 2), Math.round(-env.camera.position.y + canvas.height / 2));
 
   if (!env.loader.finished) {
     env.loader.draw();
@@ -794,12 +867,61 @@ function draw() {
     slides[i].weak_draw(ctx);
   }
 
+  entities.sort(function(a, b) {
+    if (a.depth < b.depth) {
+      return -1;
+    } else if (a.depth > b.depth) {
+      return 1;
+    }
+  });
+
+  for (let i = 0; i < entities.length; i++) {
+    entities[i].draw(ctx);
+  }
+
   ctx.restore();
 
 }
 
 function mouse_down(event) {
   env.mouse = V2(event.layerX - canvas.width / 2 + env.camera.position.x, event.layerY + env.camera.position.y - canvas.height / 2);
+
+  entities.sort(function(a, b) {
+    if (a.mdepth > b.mdepth) {
+      return -1;
+    } else if (a.mdepth < b.mdepth) {
+      return 1;
+    }
+  });
+
+  for (let i = 0; i < entities.length; i++) {
+    if (entities[i].mouse_down(env.mouse)) {
+      return;
+    }
+  }
+
+  if (activeslide) {
+    activeslide.mouse_down(env.mouse);
+  }
+}
+
+function mouse_up(event) {
+  env.mouse = V2(event.layerX - canvas.width / 2 + env.camera.position.x, event.layerY + env.camera.position.y - canvas.height / 2);
+
+  entities.sort(function(a, b) {
+    if (a.mdepth > b.mdepth) {
+      return -1;
+    } else if (a.mdepth < b.mdepth) {
+      return 1;
+    }
+  });
+
+  for (let i = 0; i < entities.length; i++) {
+    if (entities[i].mouse_up(env.mouse)) {
+      return;
+    }
+  }
+
   if (activeslide) {
     activeslide.mouse_down(env.mouse);
   }
@@ -807,6 +929,21 @@ function mouse_down(event) {
 
 function mouse_hover(event) {
   env.mouse = V2(event.layerX - canvas.width / 2 + env.camera.position.x, event.layerY + env.camera.position.y - canvas.height / 2);
+
+  entities.sort(function(a, b) {
+    if (a.mdepth > b.mdepth) {
+      return -1;
+    } else if (a.mdepth < b.mdepth) {
+      return 1;
+    }
+  });
+
+  for (let i = 0; i < entities.length; i++) {
+    if (entities[i].mouse_hover(env.mouse)) {
+      return;
+    }
+  }
+
   if (activeslide) {
     activeslide.mouse_hover(env.mouse);
   }
@@ -1106,18 +1243,48 @@ function preload_sprites(callback) {
   sprites["s2/image1"].upgrade(callback);
   sprites["s2/image2"] = new Sprite(["assets/s2/image2.png"]);
   sprites["s2/image2"].upgrade(callback);
+
+  sprites["arrow"] = new Sprite(["assets/arrow.png"]);
+  sprites["arrow"].upgrade(callback);
 }
 
-let toLoad = 20;
+let toLoad = 21;
 
 env.onload = () => {
   create_slides();
   activeslide = slides[0];
   activeslide.on_activate();
+
+  env.camera.position.x += 20;
+
+  entities.push(
+    new Button(sprites["arrow"], {
+      position: V2(canvas.width / 2 - 15, canvas.height / 2 - 50),
+      size: V2(30),
+      depth: 100,
+      onPress: () => nextslide(),
+      hoverAnimation: new EnlargeLerpAnimation(undefined, 1.2, 0.3),
+      unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, 0.3)
+    })
+  );
+
+  entities.push(
+    new Button(sprites["arrow"], {
+      position: V2(canvas.width / 2 - 15, -canvas.height / 2 + 50),
+      size: V2(30),
+      depth: 100,
+      rotation: Math.PI,
+      onPress: () => prevslide(),
+      hoverAnimation: new EnlargeLerpAnimation(undefined, 1.2, 0.3),
+      unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, 0.3)
+    })
+  );
+
 };
 
 function main() {
-  canvas.addEventListener("click", (event) => mouse_down(event));
+  canvas.addEventListener("mousedown", (event) => mouse_down(event));
+  canvas.addEventListener("mouseup", (event) => mouse_up(event));
   canvas.addEventListener("mousemove", (event) => mouse_hover(event));
 
   sprites["gymvr_logo"].wait();

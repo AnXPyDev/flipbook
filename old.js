@@ -111,7 +111,7 @@ class TransformImage {
         ctx.rotate(angle(V2(b.x - a.x, b.y - a.y)));
         ctx.fillStyle = "#00FF0055";
 
-        ctx.transform(1,0,-dx / distab,1,0,0);
+        //ctx.transform(1,0,-dx / distab,1,0,0);
         ctx.fillRect(0,0,v2dist(a,b), Math.sin(angle(V2(d.x - a.x, d.y - a.y))) * v2dist(a, d));
         ctx.restore();
       }
