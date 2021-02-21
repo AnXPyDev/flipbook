@@ -200,7 +200,7 @@ class ImageEnt extends Entity {
       }
       this.hovered_over = false;
     }
-    return this.hovered_over;
+    //return this.hovered_over;
   }
 }
 
