@@ -693,7 +693,8 @@ class Sprite {
 class Loader {
   constructor() {
     this.sprite = sprites["gymvr_logo"];
-    this.size = V2(this.sprite.size.x * 0.3, this.sprite.size.y * 0.3);
+    this.size = V2(200);
+    this.size.y = (this.size.x / this.sprite.size.x) * this.sprite.size.y;
     this.finished = false;
     this.sizem = 1;
     this.opacity = 1;
@@ -950,249 +951,282 @@ function mouse_hover(event) {
 }
 
 function create_slides() {
-  const slideanimmag = 0.04;
+  let csize = V2(1000, 750);
+  // slide size multiplier
+  let ssm = (600 / 750) * 0.9;
+  // image hover size multiplier
+  let ihsm = 1.2;
+  // image slide lerp magnitude
+  let islm = 0.1;
+  // image enlarge lerp magnitude
+  let ielm = 0.1;
+  // slide slide lerp magnitude
+  let sslm = 0.03;
+  // slide englarge lerp magnitude
+  let selm = 0.0;
+  // slide enlarge from multiplier
+  let sefm = 0.5;
+  // text slide lerp magnitude
+  let tslm = 0.1;
+  // text enlarge lerp magnitude
+  let telm = 0.1;
+  // slide activate delay
+  let sad = 10;
+  // image activate delay step
+  let iads = 20;
 
-  let s1 = new Slide({
-    size: V2(canvas.width * 0.9, canvas.height * 0.9),
-    canvasSize: V2(1000, 750),
-    nextActivateAnimation: new SlideInLerpAnimation("down", slideanimmag),
-    nextDeactivateAnimation: new SlideOutLerpAnimation("up", slideanimmag),
-    prevActivateAnimation: new SlideInLerpAnimation("up", slideanimmag),
-    prevDeactivateAnimation: new SlideOutLerpAnimation("down", slideanimmag),
-    activateDelay: 20
+
+  let s = null;
+
+  // slide 1: Škola ponúka priestor na rozvoj talentu a záujmov
+  s = new Slide({
+    size: V2(csize.x * ssm, csize.y * ssm),
+    canvasSize: csize,
+    nextActivateAnimation: new SlideInLerpAnimation("left", sslm),
+    nextDeactivateAnimation: new SlideOutLerpAnimation("right", sslm),
+    prevActivateAnimation: new SlideInLerpAnimation("right", sslm),
+    prevDeactivateAnimation: new SlideOutLerpAnimation("left", sslm),
+    activateDelay: sad
   });
-  slides.push(s1);
+
+  slides.push(s);
   
-  s1.add_background(new SolidBackground());
-  s1.add_entity(new ImageEnt(sprites["s1/title"], s1, {
+  s.add_background(new SolidBackground());
+
+  s.add_entity(new ImageEnt(sprites["s1/title"], s, {
     lockImageRatio: true,
     leftCornerPos: true,
     leftCanvasPos: true,
-    activateAnimation: new CompoundAnimation([new SlideInLerpAnimation("up", 0.1), new EnlargeLerpAnimation(0, 1, 0.1)]),
-    activateDelay: 0,
+    activateAnimation: new CompoundAnimation([new SlideInLerpAnimation("up", tslm), new EnlargeLerpAnimation(0, 1, telm)]),
+    activateDelay: iads * 0,
     position: V2(93.330, 65.105),
     width: 396.063
   }));
 
-  s1.add_entity(new ImageEnt(sprites["s1/text1"], s1, {
+  s.add_entity(new ImageEnt(sprites["s1/text1"], s, {
     lockImageRatio: true,
     leftCornerPos: true,
     leftCanvasPos: true,
-    activateAnimation: new SlideInLerpAnimation("left", 0.1),
-    activateDelay: 10,
+    activateAnimation: new SlideInLerpAnimation("left", tslm),
+    activateDelay: iads * 1,
     position: V2(66.165, 210.322),
     width: 378.096
   }));
 
-  s1.add_entity(new ImageEnt(sprites["s1/text2"], s1, {
+  s.add_entity(new ImageEnt(sprites["s1/text2"], s, {
     lockImageRatio: true,
     leftCornerPos: true,
     leftCanvasPos: true,
-    activateAnimation: new SlideInLerpAnimation("left", 0.1),
-    activateDelay: 20,
+    activateAnimation: new SlideInLerpAnimation("left", tslm),
+    activateDelay: iads * 2,
     position: V2(66.165, 242.848),
     width: 393.487
   }));
 
-  s1.add_entity(new ImageEnt(sprites["s1/text3"], s1, {
+  s.add_entity(new ImageEnt(sprites["s1/text3"], s, {
     lockImageRatio: true,
     leftCornerPos: true,
     leftCanvasPos: true,
-    activateAnimation: new SlideInLerpAnimation("left", 0.1),
-    activateDelay: 30,
+    activateAnimation: new SlideInLerpAnimation("left", tslm),
+    activateDelay: iads * 3,
     position: V2(66.165, 297.693),
     width: 447.901
   }));
 
-  s1.add_entity(new ImageEnt(sprites["s1/text4"], s1, {
+  s.add_entity(new ImageEnt(sprites["s1/text4"], s, {
     lockImageRatio: true,
     leftCornerPos: true,
     leftCanvasPos: true,
-    activateAnimation: new SlideInLerpAnimation("left", 0.1),
-    activateDelay: 40,
+    activateAnimation: new SlideInLerpAnimation("left", tslm),
+    activateDelay: iads * 4,
     position: V2(66.165, 354.767),
     width: 416.104
   }));
 
-  s1.add_entity(new ImageEnt(sprites["s1/text5"], s1, {
+  s.add_entity(new ImageEnt(sprites["s1/text5"], s, {
     lockImageRatio: true,
     leftCornerPos: true,
     leftCanvasPos: true,
-    activateAnimation: new SlideInLerpAnimation("left", 0.1),
-    activateDelay: 50,
+    activateAnimation: new SlideInLerpAnimation("left", tslm),
+    activateDelay: iads * 5,
     position: V2(66.165, 428.569),
     width: 263.682
   }));
 
-  s1.add_entity(new ImageEnt(sprites["s1/image1"], s1, {
+  s.add_entity(new ImageEnt(sprites["s1/image1"], s, {
     lockImageRatio: true,
     leftCornerPos: true,
     leftCanvasPos: true,
-    activateAnimation: new SlideInLerpAnimation("right", 0.1),
-    activateDelay: 10,
-    hoverAnimation: new EnlargeLerpAnimation(undefined, 1.2, 0.2),
-    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, 0.2),
+    activateAnimation: new SlideInLerpAnimation("right", islm),
+    activateDelay: iads * 1,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
     shadowDraw: true,
     position: V2(530.714, 70.714),
     width: 170.714
   }));
 
-  s1.add_entity(new ImageEnt(sprites["s1/image2"], s1, {
+  s.add_entity(new ImageEnt(sprites["s1/image2"], s, {
     lockImageRatio: true,
     leftCornerPos: true,
     leftCanvasPos: true,
-    activateAnimation: new SlideInLerpAnimation("right", 0.1),
-    activateDelay: 20,
-    hoverAnimation: new EnlargeLerpAnimation(undefined, 1.2, 0.2),
-    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, 0.2),
+    activateAnimation: new SlideInLerpAnimation("right", islm),
+    activateDelay: iads * 2,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
     shadowDraw: true,
     position: V2(727.857, 70.714),
     width: 214.286
   }));
 
-  s1.add_entity(new ImageEnt(sprites["s1/image3"], s1, {
+  s.add_entity(new ImageEnt(sprites["s1/image3"], s, {
     lockImageRatio: true,
     leftCornerPos: true,
     leftCanvasPos: true,
-    activateAnimation: new SlideInLerpAnimation("down", 0.1),
-    activateDelay: 30,
-    hoverAnimation: new EnlargeLerpAnimation(undefined, 1.2, 0.2),
-    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, 0.2),
+    activateAnimation: new SlideInLerpAnimation("down", islm),
+    activateDelay: iads * 3,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
     shadowDraw: true,
     position: V2(51.429, 459.286),
     width: 301.429
   }));
 
-  s1.add_entity(new ImageEnt(sprites["s1/image4"], s1, {
+  s.add_entity(new ImageEnt(sprites["s1/image4"], s, {
     lockImageRatio: true,
     leftCornerPos: true,
     leftCanvasPos: true,
-    activateAnimation: new SlideInLerpAnimation("down", 0.1),
-    activateDelay: 40,
-    hoverAnimation: new EnlargeLerpAnimation(undefined, 1.2, 0.2),
-    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, 0.2),
+    activateAnimation: new SlideInLerpAnimation("down", islm),
+    activateDelay: iads * 4,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
     shadowDraw: true,
     position: V2(367.143, 458.571),
     width: 267.857
   }));
 
-  s1.add_entity(new ImageEnt(sprites["s1/image5"], s1, {
+  s.add_entity(new ImageEnt(sprites["s1/image5"], s, {
     lockImageRatio: true,
     leftCornerPos: true,
     leftCanvasPos: true,
-    activateAnimation: new SlideInLerpAnimation("down", 0.1),
-    activateDelay: 50,
-    hoverAnimation: new EnlargeLerpAnimation(undefined, 1.2, 0.2),
-    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, 0.2),
+    activateAnimation: new SlideInLerpAnimation("down", islm),
+    activateDelay: iads * 5,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
     shadowDraw: true,
     position: V2(646.429, 493.571),
     width: 297.143
   }));
 
-  let s2 = new Slide({
-    size: V2(canvas.width * 0.9, canvas.height * 0.9),
-    canvasSize: V2(1000, 750),
-    nextActivateAnimation: new SlideInLerpAnimation("down", slideanimmag),
-    nextDeactivateAnimation: new SlideOutLerpAnimation("up", slideanimmag),
-    prevActivateAnimation: new SlideInLerpAnimation("up", slideanimmag),
-    prevDeactivateAnimation: new SlideOutLerpAnimation("down", slideanimmag),
-    activateDelay: 20
+  let slideanimmag = 0.2;
+
+  // slide 2: Škola ponúka priestor na rozvoj talentu a záujmov
+
+  s = new Slide({
+    size: V2(csize.x * ssm, csize.y * ssm),
+    canvasSize: csize,
+    nextActivateAnimation: new SlideInLerpAnimation("left", sslm),
+    nextDeactivateAnimation: new SlideOutLerpAnimation("right", sslm),
+    prevActivateAnimation: new SlideInLerpAnimation("right", sslm),
+    prevDeactivateAnimation: new SlideOutLerpAnimation("left", sslm),
+    activateDelay: sad
   });
-  slides.push(s2);
 
-  s2.add_background(new SolidBackground("#42bff5"));
+  slides.push(s);
 
-  s2.add_entity(new ImageEnt(sprites["s2/title"], s2, {
+  s.add_background(new SolidBackground("#42bff5"));
+
+  s.add_entity(new ImageEnt(sprites["s2/title"], s, {
     lockImageRatio: true,
     leftCornerPos: true,
     leftCanvasPos: true,
-    activateAnimation: new CompoundAnimation([new SlideInLerpAnimation("up", 0.1), new EnlargeLerpAnimation(0, 1, 0.1)]),
-    activateDelay: 0,
+    activateAnimation: new CompoundAnimation([new SlideInLerpAnimation("up", tslm), new EnlargeLerpAnimation(0, 1, telm)]),
+    activateDelay: iads * 0,
     position: V2(77.394, 73.152),
     width: 346.555
   }));
 
-  s2.add_entity(new ImageEnt(sprites["s2/text1"], s2, {
+  s.add_entity(new ImageEnt(sprites["s2/text1"], s, {
     lockImageRatio: true,
     leftCornerPos: true,
     leftCanvasPos: true,
-    activateAnimation: new SlideInLerpAnimation("down", 0.1),
-    activateDelay: 10,
+    activateAnimation: new SlideInLerpAnimation("down", tslm),
+    activateDelay: iads * 1,
     position: V2(360, 148.311),
     width: 281.865
   }));
 
-  s2.add_entity(new ImageEnt(sprites["s2/text2"], s2, {
+  s.add_entity(new ImageEnt(sprites["s2/text2"], s, {
     lockImageRatio: true,
     leftCornerPos: true,
     leftCanvasPos: true,
-    activateAnimation: new SlideInLerpAnimation("down", 0.1),
-    activateDelay: 20,
+    activateAnimation: new SlideInLerpAnimation("down", tslm),
+    activateDelay: iads * 2,
     position: V2(360, 242.438),
     width: 251.738
   }));
 
-  s2.add_entity(new ImageEnt(sprites["s2/text3"], s2, {
+  s.add_entity(new ImageEnt(sprites["s2/text3"], s, {
     lockImageRatio: true,
     leftCornerPos: true,
     leftCanvasPos: true,
-    activateAnimation: new SlideInLerpAnimation("down", 0.1),
-    activateDelay: 30,
+    activateAnimation: new SlideInLerpAnimation("down", tslm),
+    activateDelay: iads * 3,
     position: V2(360, 332.932),
     width: 281.231
   }));
 
-  s2.add_entity(new ImageEnt(sprites["s2/text4"], s2, {
+  s.add_entity(new ImageEnt(sprites["s2/text4"], s, {
     lockImageRatio: true,
     leftCornerPos: true,
     leftCanvasPos: true,
-    activateAnimation: new SlideInLerpAnimation("down", 0.1),
-    activateDelay: 40,
+    activateAnimation: new SlideInLerpAnimation("down", tslm),
+    activateDelay: iads * 4,
     position: V2(360, 451.697),
     width: 289.395
   }));
 
-  s2.add_entity(new ImageEnt(sprites["s2/text5"], s2, {
+  s.add_entity(new ImageEnt(sprites["s2/text5"], s, {
     lockImageRatio: true,
     leftCornerPos: true,
     leftCanvasPos: true,
-    activateAnimation: new SlideInLerpAnimation("down", 0.1),
-    activateDelay: 50,
+    activateAnimation: new SlideInLerpAnimation("down", tslm),
+    activateDelay: iads * 5,
     position: V2(360, 540.985),
     width: 301.289
   }));
 
-  s2.add_entity(new ImageEnt(sprites["s2/text6"], s2, {
+  s.add_entity(new ImageEnt(sprites["s2/text6"], s, {
     lockImageRatio: true,
     leftCornerPos: true,
     leftCanvasPos: true,
-    activateAnimation: new SlideInLerpAnimation("down", 0.1),
-    activateDelay: 60,
+    activateAnimation: new SlideInLerpAnimation("down", tslm),
+    activateDelay: iads * 6,
     position: V2(360, 607.415),
     width: 186.670
   }));
 
-  s2.add_entity(new ImageEnt(sprites["s2/image1"], s2, {
+  s.add_entity(new ImageEnt(sprites["s2/image1"], s, {
     lockImageRatio: true,
     leftCornerPos: true,
     leftCanvasPos: true,
-    activateAnimation: new SlideInLerpAnimation("left", 0.1),
-    activateDelay: 10,
-    hoverAnimation: new EnlargeLerpAnimation(undefined, 1.2, 0.2),
-    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, 0.2),
+    activateAnimation: new SlideInLerpAnimation("left", islm),
+    activateDelay: iads * 1,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
     shadowDraw: true,
     position: V2(64.650, 203.041),
     width: 268.701
   }));
 
-  s2.add_entity(new ImageEnt(sprites["s2/image2"], s2, {
+  s.add_entity(new ImageEnt(sprites["s2/image2"], s, {
     lockImageRatio: true,
     leftCornerPos: true,
     leftCanvasPos: true,
-    activateAnimation: new SlideInLerpAnimation("right", 0.1),
-    activateDelay: 10,
-    hoverAnimation: new EnlargeLerpAnimation(undefined, 1.2, 0.2),
-    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, 0.2),
+    activateAnimation: new SlideInLerpAnimation("right", islm),
+    activateDelay: iads * 1,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
     shadowDraw: true,
     position: V2(695.995, 139.401),
     width: 256.579
@@ -1201,68 +1235,41 @@ function create_slides() {
 
 let sprites = {};
 
+let toLoad = 0;
+
 function preload_sprites(callback) {
-  sprites["s1/title"] = new Sprite(["assets/s1/title.png"]);
-  sprites["s1/title"].upgrade(callback);
-  sprites["s1/text1"] = new Sprite(["assets/s1/text1.png"]);
-  sprites["s1/text1"].upgrade(callback);
-  sprites["s1/text2"] = new Sprite(["assets/s1/text2.png"]);
-  sprites["s1/text2"].upgrade(callback);
-  sprites["s1/text3"] = new Sprite(["assets/s1/text3.png"]);
-  sprites["s1/text3"].upgrade(callback);
-  sprites["s1/text4"] = new Sprite(["assets/s1/text4.png"]);
-  sprites["s1/text4"].upgrade(callback);
-  sprites["s1/text5"] = new Sprite(["assets/s1/text5.png"]);
-  sprites["s1/text5"].upgrade(callback);
-  sprites["s1/image1"] = new Sprite(["assets/s1/image1.png"]);
-  sprites["s1/image1"].upgrade(callback);
-  sprites["s1/image2"] = new Sprite(["assets/s1/image2.png"]);
-  sprites["s1/image2"].upgrade(callback);
-  sprites["s1/image3"] = new Sprite(["assets/s1/image3.png"]);
-  sprites["s1/image3"].upgrade(callback);
-  sprites["s1/image4"] = new Sprite(["assets/s1/image4.png"]);
-  sprites["s1/image4"].upgrade(callback);
-  sprites["s1/image5"] = new Sprite(["assets/s1/image5.png"]);
-  sprites["s1/image5"].upgrade(callback);
+  let S = {
+    "s1": ["title", "text1", "text2", "text3", "text4", "text5", "image1", "image2", "image3", "image4", "image5"],
+    "s2": ["title", "text1", "text2", "text3", "text4", "text5", "text6", "image1", "image2"]
+  }
 
-  sprites["s2/title"] = new Sprite(["assets/s2/title.png"]);
-  sprites["s2/title"].upgrade(callback);
-  sprites["s2/text1"] = new Sprite(["assets/s2/text1.png"]);
-  sprites["s2/text1"].upgrade(callback);
-  sprites["s2/text2"] = new Sprite(["assets/s2/text2.png"]);
-  sprites["s2/text2"].upgrade(callback);
-  sprites["s2/text3"] = new Sprite(["assets/s2/text3.png"]);
-  sprites["s2/text3"].upgrade(callback);
-  sprites["s2/text4"] = new Sprite(["assets/s2/text4.png"]);
-  sprites["s2/text4"].upgrade(callback);
-  sprites["s2/text5"] = new Sprite(["assets/s2/text5.png"]);
-  sprites["s2/text5"].upgrade(callback);
-  sprites["s2/text6"] = new Sprite(["assets/s2/text6.png"]);
-  sprites["s2/text6"].upgrade(callback);
-  sprites["s2/image1"] = new Sprite(["assets/s2/image1.png"]);
-  sprites["s2/image1"].upgrade(callback);
-  sprites["s2/image2"] = new Sprite(["assets/s2/image2.png"]);
-  sprites["s2/image2"].upgrade(callback);
+  for (slide of Object.keys(S)) {
+    for (image of S[slide]) {
+      toLoad++;
+      console.log(slide + "/" + image);
+      let s = new Sprite(["assets/" + slide + "/min/" + image + ".png", "assets/" + slide + "/max/" + image + ".png"]);
+      s.upgrade(callback);
+      sprites[slide + "/" + image] = s;
+    }
+  }
 
+  toLoad++;
   sprites["arrow"] = new Sprite(["assets/arrow.png"]);
-  sprites["arrow"].upgrade(callback);
+  sprites["arrow"].upgrade(callback, );
 }
-
-let toLoad = 21;
 
 env.onload = () => {
   create_slides();
   activeslide = slides[0];
   activeslide.on_activate();
 
-  env.camera.position.x += 20;
-
   entities.push(
     new Button(sprites["arrow"], {
-      position: V2(canvas.width / 2 - 15, canvas.height / 2 - 50),
-      size: V2(30),
+      position: V2(-canvas.width / 2 + 30, 0),
+      size: V2(30, 30),
       depth: 100,
-      onPress: () => nextslide(),
+      onPress: () => prevslide(),
+      rotation: Math.PI * (1/2),
       hoverAnimation: new EnlargeLerpAnimation(undefined, 1.2, 0.3),
       unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, 0.3)
     })
@@ -1270,11 +1277,11 @@ env.onload = () => {
 
   entities.push(
     new Button(sprites["arrow"], {
-      position: V2(canvas.width / 2 - 15, -canvas.height / 2 + 50),
-      size: V2(30),
+      position: V2(canvas.width / 2 - 30, 0),
+      size: V2(30, 30),
       depth: 100,
-      rotation: Math.PI,
-      onPress: () => prevslide(),
+      rotation: Math.PI * (3/2),
+      onPress: () => nextslide(),
       hoverAnimation: new EnlargeLerpAnimation(undefined, 1.2, 0.3),
       unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, 0.3)
     })
