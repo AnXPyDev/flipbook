@@ -814,6 +814,36 @@ class Button extends Entity {
 
 }
 
+class ToggleButton extends Button {
+  constructor(sprite, config) {
+    super(sprite, config);
+    this.sprites = [this.sprite, ...config.sprites];
+    this.state_count = config.stateCount || this.sprites.length;
+    this.callbacks = [...config.callbacks];
+    this.state = config.state || 0;
+    this.sprite = this.sprites[this.state];
+  }
+
+  mouse_down(mpos) {
+    if (this.check_mouse(mpos)) {
+      this.callbacks[this.state]();
+      this.state++;
+      if (this.state >= this.state_count) {
+        this.state = 0;
+      }
+      this.sprite = this.sprites[this.state];
+    }
+  }
+
+  set_state(state) {
+    if (state < 0 || state >= this.state_count) {
+      return;
+    }
+    this.state = state;
+    this.sprite = this.sprites[this.state];
+  }
+}
+
 let slides = [];
 let entities = [];
 let activeslide = null;
@@ -824,6 +854,9 @@ const env = {
   tps: 60,
   loader: null,
   slideidx: 0,
+  playing: true,
+  slide_duration: 300,
+  play_timer: 300,
   masterSlide: {
     canvasSize: V2(canvas.width, canvas.height)
   }
@@ -882,6 +915,14 @@ function tick() {
   }
 
   activeslide && activeslide.tick();
+
+  if (env.playing) {
+    env.play_timer -= 1;
+    if (env.play_timer <= 0) {
+      nextslide();
+      env.play_timer = env.slide_duration;
+    }
+  }
 }
 
 env.loaded = false;
@@ -3847,6 +3888,17 @@ env.onload = () => {
   activeslide = slides[0];
   activeslide.on_activate();
 
+  let pause = () => {
+    env.playing = false;
+  }
+
+  let play = () => {
+    env.playing = true;
+    env.play_timer = env.slide_duration;
+  }
+
+  let play_button = null;
+
   let barypos = canvas.height / 2 - 10;
 
   entities.push(
@@ -3854,7 +3906,11 @@ env.onload = () => {
       position: V2(-35 * 1.5, barypos),
       size: V2(30, 30),
       depth: 100,
-      onPress: () => prevslide(),
+      onPress: () => {
+        prevslide();
+        pause();
+        play_button.set_state(0);
+      },
       rotation: Math.PI * (1/2),
       hoverAnimation: new EnlargeLerpAnimation(undefined, 1.2, 0.3),
       unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, 0.3)
@@ -3867,7 +3923,11 @@ env.onload = () => {
       size: V2(30, 30),
       depth: 100,
       rotation: Math.PI * (3/2),
-      onPress: () => nextslide(),
+      onPress: () => {
+        nextslide();
+        pause();
+        play_button.set_state(0);
+      },
       hoverAnimation: new EnlargeLerpAnimation(undefined, 1.2, 0.3),
       unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, 0.3)
     })
@@ -3884,16 +3944,18 @@ env.onload = () => {
     })
   );
 
-  entities.push(
-    new Button(sprites["play_icon"], {
-      position: V2(35/2, barypos),
-      size: V2(30, 30),
-      depth: 100,
-      onPress: () => {},
-      hoverAnimation: new EnlargeLerpAnimation(undefined, 1.2, 0.3),
-      unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, 0.3)
-    })
-  );
+  play_button = new ToggleButton(sprites["play_icon"], {
+    position: V2(35/2, barypos),
+    size: V2(30, 30),
+    depth: 100,
+    state: 1,
+    sprites: [sprites["pause_icon"]],
+    callbacks: [() => play(), () => pause()],
+    hoverAnimation: new EnlargeLerpAnimation(undefined, 1.2, 0.3),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, 0.3)
+  });
+    
+  entities.push(play_button);
 
 };
 
