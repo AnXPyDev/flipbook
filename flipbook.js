@@ -714,7 +714,7 @@ class Sprite {
 
     this.load_image.onerror = () => {
       this.upgrading = false;
-      console.log("sprite upgrade error");
+      //console.log("sprite upgrade error");
       this.upgrade(callback);
     }
   }
@@ -1013,7 +1013,7 @@ function create_slides() {
   // image enlarge lerp magnitude
   let ielm = 0.1;
   // slide slide lerp magnitude
-  let sslm = 0.03;
+  let sslm = 0.02;
   // slide englarge lerp magnitude
   let selm = 0.0;
   // slide enlarge from multiplier
@@ -1281,142 +1281,6 @@ function create_slides() {
 
   }
 
-  // slide 5
-  {
-  s = new Slide({
-    size: V2(csize.x * ssm, csize.y * ssm),
-    canvasSize: csize,
-    nextActivateAnimation: new SlideInLerpAnimation("right", sslm),
-    nextDeactivateAnimation: new SlideOutLerpAnimation("left", sslm),
-    prevActivateAnimation: new SlideInLerpAnimation("left", sslm),
-    prevDeactivateAnimation: new SlideOutLerpAnimation("right", sslm),
-    activateDelay: sad
-  });
-
-  slides.push(s);
-  
-  s.add_background(new SolidBackground("#FFFFFF"));
-
-  s.add_entity(new ImageEnt(sprites["s5/text1"], s, {
-    lockImageRatio: true,
-    activateAnimation: new EnlargeLerpAnimation(0, 1, telm),
-    activateDelay: iads * 0,
-    width: 154.242
-  }));
-
-  s.add_entity(new ImageEnt(sprites["s5/sc1"], s, {
-    lockImageRatio: true,
-    leftCornerPos: true,
-    leftCanvasPos: true,
-    activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
-    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
-    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
-    shadowDraw: true,
-    callback: () => switchslide(11 - 1),
-    activateDelay: iads * 1.5,
-    position: V2(379.022, 34.579),
-    width: 241.957
-  }));
-
-  s.add_entity(new ImageEnt(sprites["s5/sc2"], s, {
-    lockImageRatio: true,
-    leftCornerPos: true,
-    leftCanvasPos: true,
-    activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
-    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
-    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
-    shadowDraw: true,
-    callback: () => switchslide(15 - 1),
-    activateDelay: iads * 2,
-    position: V2(560.792, 64.453),
-    width: 249.754
-  }));
-
-  s.add_entity(new ImageEnt(sprites["s5/sc3"], s, {
-    lockImageRatio: true,
-    leftCornerPos: true,
-    leftCanvasPos: true,
-    activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
-    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
-    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
-    shadowDraw: true,
-    activateDelay: iads * 2.5,
-    position: V2(628.286, 254.022),
-    width: 212.135
-  }));
-
-  s.add_entity(new ImageEnt(sprites["s5/sc4"], s, {
-    lockImageRatio: true,
-    leftCornerPos: true,
-    leftCanvasPos: true,
-    activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
-    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
-    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
-    callback: () => switchslide(13 - 1),
-    shadowDraw: true,
-    activateDelay: iads * 3,
-    position: V2(560.792, 435.792),
-    width: 249.753
-  }));
-
-  s.add_entity(new ImageEnt(sprites["s5/sc5"], s, {
-    lockImageRatio: true,
-    leftCornerPos: true,
-    leftCanvasPos: true,
-    activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
-    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
-    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
-    shadowDraw: true,
-    activateDelay: iads * 3.5,
-    position: V2(379.022, 503.289),
-    width: 241.957
-  }));
-
-  s.add_entity(new ImageEnt(sprites["s5/sc6"], s, {
-    lockImageRatio: true,
-    leftCornerPos: true,
-    leftCanvasPos: true,
-    activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
-    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
-    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
-    callback: () => switchslide(19 -1),
-    shadowDraw: true,
-    activateDelay: iads * 4,
-    position: V2(189.454, 435.793),
-    width: 249.754
-  }));
-
-  s.add_entity(new ImageEnt(sprites["s5/sc7"], s, {
-    lockImageRatio: true,
-    leftCornerPos: true,
-    leftCanvasPos: true,
-    activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
-    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
-    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
-    shadowDraw: true,
-    activateDelay: iads * 4.5,
-    callback: () => switchslide(14 - 1),
-    position: V2(159.579, 254.022),
-    width: 212.135
-  }));
-
-  s.add_entity(new ImageEnt(sprites["s5/sc8"], s, {
-    lockImageRatio: true,
-    leftCornerPos: true,
-    leftCanvasPos: true,
-    activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
-    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
-    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
-    shadowDraw: true,
-    callback: () => switchslide(7 - 1),
-    activateDelay: iads * 1,
-    position: V2(189.455, 64.454),
-    width: 249.753
-  }));
-
-
-  }
-
   // slide 6
   {
   s = new Slide({
@@ -1575,7 +1439,145 @@ function create_slides() {
     size: V2(296.985, 214.152)
   }));
   }
+
+  // slide 5
+  {
+  s = new Slide({
+    size: V2(csize.x * ssm, csize.y * ssm),
+    canvasSize: csize,
+    nextActivateAnimation: new SlideInLerpAnimation("right", sslm),
+    nextDeactivateAnimation: new SlideOutLerpAnimation("left", sslm),
+    prevActivateAnimation: new SlideInLerpAnimation("left", sslm),
+    prevDeactivateAnimation: new SlideOutLerpAnimation("right", sslm),
+    activateDelay: sad
+  });
+
+  slides.push(s);
   
+  s.add_background(new SolidBackground("#FFFFFF"));
+
+  s.add_entity(new ImageEnt(sprites["s5/text1"], s, {
+    lockImageRatio: true,
+    activateAnimation: new EnlargeLerpAnimation(0, 1, telm),
+    activateDelay: iads * 0,
+    width: 154.242
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s5/sc1"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    shadowDraw: true,
+    callback: () => switchslide(11 - 1),
+    activateDelay: iads * 1,
+    position: V2(379.022, 34.579),
+    width: 241.957
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s5/sc2"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    shadowDraw: true,
+    callback: () => switchslide(15 - 1),
+    activateDelay: iads * 1.5,
+    position: V2(560.792, 64.453),
+    width: 249.754
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s5/sc3"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    shadowDraw: true,
+    activateDelay: iads * 2,
+    callback: () => switchslide(20 -1),
+    position: V2(628.286, 254.022),
+    width: 212.135
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s5/sc4"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    callback: () => switchslide(13 - 1),
+    shadowDraw: true,
+    activateDelay: iads * 2.5,
+    position: V2(560.792, 435.792),
+    width: 249.753
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s5/sc5"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    shadowDraw: true,
+    callback: () => switchslide(22 -1),
+    activateDelay: iads * 3,
+    position: V2(379.022, 503.289),
+    width: 241.957
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s5/sc6"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    callback: () => switchslide(19 -1),
+    shadowDraw: true,
+    activateDelay: iads * 2.5,
+    position: V2(189.454, 435.793),
+    width: 249.754
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s5/sc7"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    shadowDraw: true,
+    activateDelay: iads * 2,
+    callback: () => switchslide(14 - 1),
+    position: V2(159.579, 254.022),
+    width: 212.135
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s5/sc8"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    shadowDraw: true,
+    callback: () => switchslide(7 - 1),
+    activateDelay: iads * 1.5,
+    position: V2(189.455, 64.454),
+    width: 249.753
+  }));
+
+
+  }
+ 
   // slide 7: Škola ponúka priestor na rozvoj talentu a záujmov
   {
   s = new Slide({
@@ -3191,6 +3193,589 @@ function create_slides() {
 
 
   }
+
+  // slide 20
+  {
+  s = new Slide({
+    size: V2(csize.x * ssm, csize.y * ssm),
+    canvasSize: csize,
+    nextActivateAnimation: new SlideInLerpAnimation("right", sslm),
+    nextDeactivateAnimation: new SlideOutLerpAnimation("left", sslm),
+    prevActivateAnimation: new SlideInLerpAnimation("left", sslm),
+    prevDeactivateAnimation: new SlideOutLerpAnimation("right", sslm),
+    activateDelay: sad
+  });
+
+  slides.push(s);
+
+  s.add_background(new SolidBackground("#6699ff"));
+  
+
+  s.add_entity(new ImageEnt(sprites["s20/title"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new CompoundAnimation([new SlideInLerpAnimation("up", tslm), new EnlargeLerpAnimation(0, 1, telm)]),
+    activateDelay: iads * 0,
+    position: V2(51.945, 57.153),
+    width: 360.526
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s20/text1"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new SlideInLerpAnimation("left", tslm),
+    activateDelay: iads * 1,
+    position: V2(48.601, 252.036),
+    width: 190.090
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s20/text2"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new SlideInLerpAnimation("left", tslm),
+    activateDelay: iads * 2,
+    position: V2(48.601, 352.037),
+    width: 178.195
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s20/text3"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new SlideInLerpAnimation("left", tslm),
+    activateDelay: iads * 3,
+    position: V2(48.601, 419.183),
+    width: 125.180
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s20/image1"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new SlideInLerpAnimation("right", islm),
+    activateDelay: iads * 1,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    shadowDraw: true,
+    outlineColor: "#ffffff",
+    outlineWidth: 5,
+    position: V2(451.429, 30.000),
+    width: 431.429
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s20/image2"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
+    activateDelay: iads * 2.5,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    shadowDraw: true,
+    depth:1,
+    position: V2(252.857, 255.714),
+    width: 368.571
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s20/image3"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new SlideInLerpAnimation("right", islm),
+    activateDelay: iads * 2,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    shadowDraw: true,
+    depth:1,
+    position: V2(660.000, 225.000),
+    width: 317.143
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s20/image4"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new SlideInLerpAnimation("left", islm),
+    activateDelay: iads * 3.5,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    shadowDraw: true,
+    position: V2(48.601, 524.286),
+    width: 257.828
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s20/image5"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new SlideInLerpAnimation("down", islm),
+    activateDelay: iads * 4.5,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    shadowDraw: true,
+    position: V2(347.857, 525.714),
+    width: 243.571
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s20/image6"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new SlideInLerpAnimation("right", islm),
+    activateDelay: iads * 3.5,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    shadowDraw: true,
+    outlineColor: "#FFFFFF",
+    outlineWidth: 5,
+    position: V2(637.143, 479.286),
+    width: 338.571
+  }));
+  }
+
+  // slide 21
+  {
+  s = new Slide({
+    size: V2(csize.x * ssm, csize.y * ssm),
+    canvasSize: csize,
+    nextActivateAnimation: new SlideInLerpAnimation("right", sslm),
+    nextDeactivateAnimation: new SlideOutLerpAnimation("left", sslm),
+    prevActivateAnimation: new SlideInLerpAnimation("left", sslm),
+    prevDeactivateAnimation: new SlideOutLerpAnimation("right", sslm),
+    activateDelay: sad
+  });
+
+  slides.push(s);
+
+  s.add_background(new SolidBackground("#6699ff"));
+  
+
+  s.add_entity(new ImageEnt(sprites["s21/title"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new CompoundAnimation([new SlideInLerpAnimation("up", tslm), new EnlargeLerpAnimation(0, 1, telm)]),
+    activateDelay: iads * 0,
+    position: V2(89.712, 65.297),
+    width: 302.029
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s21/text1"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new SlideInLerpAnimation("left", tslm),
+    activateDelay: iads * 1,
+    position: V2(83.307, 127.905),
+    width: 231.836
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s21/text2"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new SlideInLerpAnimation("left", tslm),
+    activateDelay: iads * 2,
+    position: V2(83.307, 248.179),
+    width: 166.524
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s21/text3"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new SlideInLerpAnimation("left", tslm),
+    activateDelay: iads * 3,
+    position: V2(83.307, 280.799),
+    width: 188.291
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s21/image1"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new SlideInLerpAnimation("right", islm),
+    activateDelay: iads * 2,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    shadowDraw: true,
+    outlineColor: "#8497b0",
+    outlineWidth: 3,
+    depth: 1,
+    position: V2(544.286, 31.429),
+    width: 399.2862
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s21/image2"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new SlideInLerpAnimation("right", islm),
+    activateDelay: iads * 1,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    shadowDraw: true,
+    outlineColor: "#c00000",
+    outlineWidth: 5,
+    position: V2(434.286, 218.571),
+    width: 476.429
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s21/image3"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new SlideInLerpAnimation("left", islm),
+    activateDelay: iads * 3,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    shadowDraw: true,
+    depth: 1,
+    position: V2(49.286, 355.714),
+    width: 384.286
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s21/image4"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new SlideInLerpAnimation("down", islm),
+    activateDelay: iads * 4,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    shadowDraw: true,
+    depth: 2,
+    position: V2(351.429, 525.000),
+    width: 266.429
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s21/image5"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new SlideInLerpAnimation("right", islm),
+    activateDelay: iads * 3,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    shadowDraw: true,
+    position: V2(667.143, 510.000),
+    width: 274.286
+  }));
+  
+  }
+
+  // slide 22
+
+  {
+  s = new Slide({
+    size: V2(csize.x * ssm, csize.y * ssm),
+    canvasSize: csize,
+    nextActivateAnimation: new SlideInLerpAnimation("right", sslm),
+    nextDeactivateAnimation: new SlideOutLerpAnimation("left", sslm),
+    prevActivateAnimation: new SlideInLerpAnimation("left", sslm),
+    prevDeactivateAnimation: new SlideOutLerpAnimation("right", sslm),
+    activateDelay: sad
+  });
+
+  slides.push(s);
+
+  s.add_background(new SolidBackground("#ffffff"));
+  
+
+  s.add_entity(new ImageEnt(sprites["s22/title"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new CompoundAnimation([new SlideInLerpAnimation("up", tslm), new EnlargeLerpAnimation(0, 1, telm)]),
+    activateDelay: iads * 0,
+    position: V2(110.382, 54.551),
+    width: 328.570
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s22/image1"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new SlideInLerpAnimation("left", islm),
+    activateDelay: iads * 1,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    shadowDraw: true,
+    outlineColor: "#800000",
+    outlineWidth: 5,
+    position: V2(60.609, 110.107),
+    width: 381.838
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s22/image3"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
+    activateDelay: iads * 2,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    shadowDraw: true,
+    outlineColor: "#0070c0",
+    outlineWidth: 5,
+    depth: 1,
+    position: V2(394.970, 256.579),
+    width: 250.518
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s22/image5"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new SlideInLerpAnimation("right", islm),
+    activateDelay: iads * 3,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    shadowDraw: true,
+    position: V2(671.429, 280.000),
+    width: 277.143
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s22/image2"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new SlideInLerpAnimation("right", islm),
+    activateDelay: iads * 4,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    shadowDraw: true,
+    outlineColor: "#66ccff",
+    outlineWidth: 5,
+    depth: 2,
+    position: V2(594.980, 63.640),
+    width: 307.086
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s22/image4"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new SlideInLerpAnimation("left", islm),
+    activateDelay: iads * 5,
+    hoverAnimation: new EnlargeLerpAnimation(undefined, ihsm, ielm),
+    unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, ielm),
+    shadowDraw: true,
+    outlineColor: "#00b0f0",
+    outlineWidth: 5,
+    depth: 2,
+    position: V2(89.904, 427.295),
+    width: 352.543
+  }));
+  }
+
+  // slide 23
+  {
+  s = new Slide({
+    size: V2(csize.x * ssm, csize.y * ssm),
+    canvasSize: csize,
+    nextActivateAnimation: new SlideInLerpAnimation("right", sslm),
+    nextDeactivateAnimation: new SlideOutLerpAnimation("left", sslm),
+    prevActivateAnimation: new SlideInLerpAnimation("left", sslm),
+    prevDeactivateAnimation: new SlideOutLerpAnimation("right", sslm),
+    activateDelay: sad
+  });
+
+  slides.push(s);
+
+  s.add_background(new SolidBackground("#ffffff"));
+  
+
+  s.add_entity(new ImageEnt(sprites["s23/title"], s, {
+    lockImageRatio: true,
+    activateAnimation: new CompoundAnimation([new SlideInLerpAnimation("up", tslm), new EnlargeLerpAnimation(0, 1, telm)]),
+    activateDelay: iads * 0,
+    position: V2(0, -250),
+    width: 328.570
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s23/image1"], s, {
+    lockImageRatio: true,
+    activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
+    activateDelay: iads * 1,
+    depth: -1,
+    position: V2(0, 30),
+    width: 920
+  }));
+  }
+
+  // slide 24
+  {
+  s = new Slide({
+    size: V2(csize.x * ssm, csize.y * ssm),
+    canvasSize: csize,
+    nextActivateAnimation: new SlideInLerpAnimation("right", sslm),
+    nextDeactivateAnimation: new SlideOutLerpAnimation("left", sslm),
+    prevActivateAnimation: new SlideInLerpAnimation("left", sslm),
+    prevDeactivateAnimation: new SlideOutLerpAnimation("right", sslm),
+    activateDelay: sad
+  });
+
+  slides.push(s);
+
+  s.add_background(new SolidBackground("#ffffff"));
+  
+
+  s.add_entity(new ImageEnt(sprites["s24/title"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new CompoundAnimation([new SlideInLerpAnimation("up", tslm), new EnlargeLerpAnimation(0, 1, telm)]),
+    activateDelay: iads * 0,
+    position: V2(457.172, 119.365),
+    width: 105.579
+  }));
+
+  let textPopOffset = iads * 1;
+  let textPopWindow = 240;
+
+  let texts = [
+    [135.743, 191.339, 119.522],
+    [294.525, 191.350, 121.357],
+    [453.811, 191.350, 114.795],
+    [604.516, 187.393, 167.543],
+    [807.293, 190.690, 53.662],
+    [135.669, 225.636, 127.529],
+    [300.963, 225.792, 83.037],
+    [414.606, 226.088, 68.389],
+    [517.389, 224.782, 82.998],
+    [632.778, 225.540, 90.928],
+    [756.774, 226.045, 122.568],
+    [157.459, 258.622, 108.311],
+    [303.944, 258.370, 131.787],
+    [472.639, 257.865, 88.467],
+    [598.656, 257.612, 128.779],
+    [763.816, 257.612, 93.350],
+    [135.753, 299.324, 30.566],
+    [196.254, 294.578, 128.965],
+    [359.821, 298.493, 126.982],
+    [521.509, 298.493, 107.217],
+    [661.152, 298.493, 60.068],
+    [754.480, 298.271, 125.225],
+    [155.459, 340.687, 93.662],
+    [286.022, 340.445, 110.967],
+    [431.755, 336.409, 78.855],
+    [545.917, 339.940, 142.881],
+    [726.229, 340.445, 132.959],
+    [136.300, 382.871, 86.904],
+    [274.691, 383.881, 95.381],
+    [420.658, 382.366, 85.420],
+    [557.029, 382.871, 88.662],
+    [694.448, 379.340, 158.496],
+    [135.119, 417.065, 132.803],
+    [331.099, 417.422, 115.772],
+    [510.741, 418.136, 146.436],
+    [721.099, 417.422, 125.225],
+    [133.956, 457.065, 146.787],
+    [318.599, 457.065, 87.295],
+    [438.429, 453.621, 135.387],
+    [605.669, 457.065, 90.576],
+    [734.393, 457.524, 125.381],
+    [136.893, 491.810, 85.147],
+    [274.393, 492.167, 122.100],
+    [448.950, 492.065, 88.662],
+    [587.965, 492.167, 111.162],
+    [749.750, 492.167, 100.107],
+    [134.750, 524.394, 88.662],
+    [271.536, 524.310, 91.475],
+    [410.822, 524.310, 132.061],
+    [591.179, 524.310, 112.256],
+    [752.250, 524.667, 100.147],
+    [134.393, 556.096, 96.123],
+    [263.322, 556.453, 86.279],
+    [383.322, 556.453, 74.912],
+    [489.393, 556.810, 84.482],
+  ]
+
+  let bullets = [
+    [269.375, 194.822], [430.089, 194.554], [579.197, 195.089], [784.911, 195.268], [871.875, 194.911],
+    [277.723, 228.731], [394.038, 228.940], [494.375, 228.839], [610.982, 229.018], [734.732, 229.018],
+    [134.281, 263.318], [278.661, 261.875], [449.018, 261.518], [573.304, 261.875], [740.089, 261.875], [871.875, 261.875],
+    [173.661, 301.875], [337.947, 301.518], [499.732, 301.875], [641.875, 301.161], [732.589, 301.875],
+    [133.661, 344.018], [264.018, 344.018], [409.732, 344.732], [522.589, 344.018], [700.089, 344.732], [870.804, 345.089],
+    [244.375, 387.232], [390.089, 386.518], [527.589, 386.875], [664.732, 386.518], [871.161, 387.232],
+    [294.018, 421.161], [472.232, 421.518], [682.589, 420.804], [871.518, 421.161],
+    [294.018, 461.161], [416.161, 460.804], [581.518, 460.804], [709.375, 461.518], [871.875, 460.804],
+    [242.947, 495.089], [417.232, 495.089], [557.232, 494.732], [719.732, 495.089], [871.518, 495.447],
+    [243.304, 528.304], [382.589, 528.304], [562.232, 528.661], [722.232, 527.947], [871.518, 527.947],
+    [242.232, 560.447], [360.089, 560.089], [469.375, 560.089],
+
+  ]
+
+  for (let i = 0; i < texts.length; i++) {
+    s.add_entity(new ImageEnt(sprites["s24/text" + (i + 1).toString()], s, {
+      lockImageRatio: true,
+      leftCornerPos: true,
+      leftCanvasPos: true,
+      activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
+      activateDelay: textPopOffset + textPopWindow * Math.random(),
+      position: V2(texts[i][0], texts[i][1]),
+      width: texts[i][2]
+    }));
+  }
+
+  for (let i = 0; i < bullets.length; i++) {
+    s.add_entity(new ImageEnt(sprites["s24/circle"], s, {
+      lockImageRatio: true,
+      leftCornerPos: true,
+      leftCanvasPos: true,
+      activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
+      activateDelay: textPopOffset + textPopWindow * Math.random(),
+      position: V2(bullets[i][0], bullets[i][1]),
+      width: 11.250
+    }));
+  }
+
+  s.add_entity(new ImageEnt(sprites["s24/endtitle"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new CompoundAnimation([new SlideInLerpAnimation("down", tslm), new EnlargeLerpAnimation(0, 1, telm)]),
+    activateDelay: textPopOffset + textPopWindow + iads * 1,
+    position: V2(391.479, 596.371),
+    width: 233.784
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s24/endtext"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new CompoundAnimation([new SlideInLerpAnimation("down", tslm), new EnlargeLerpAnimation(0, 1, telm)]),
+    activateDelay: textPopOffset + textPopWindow + iads * 2,
+    position: V2(456.535, 645.938),
+    width: 107.569
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s24/heart1"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
+    activateDelay: textPopOffset + textPopWindow + iads * 3,
+    position: V2(285.712, 602.841),
+    width: 45.526
+  }));
+
+  s.add_entity(new ImageEnt(sprites["s24/heart2"], s, {
+    lockImageRatio: true,
+    leftCornerPos: true,
+    leftCanvasPos: true,
+    activateAnimation: new EnlargeLerpAnimation(0, 1, ielm),
+    activateDelay: textPopOffset + textPopWindow + iads * 3.5,
+    position: V2(649.962, 577.113),
+    width: 53.886
+  }));
+
+
+  }
 }
 
 let sprites = {};
@@ -3218,12 +3803,21 @@ function preload_sprites(callback) {
     "s17": ["title.png", "image1.jpg", "image2.jpg", "image3.jpg", "image4.jpg", "image5.jpg", "image6.jpg"],
     "s18": ["title.png", "image1.jpg", "image2.jpg", "image3.jpg", "image4.jpg", "image5.jpg"],
     "s19": ["title.png", "text1.png", "text2.png", "text3.png", "text4.png", "text5.png", "text6.png", "text7.png", "text8.png", "image1.jpg", "image2.jpg", "image3.jpg", "image4.jpg", "image5.jpg", "image6.jpg"],
+    "s20": ["title.png", "text1.png", "text2.png", "text3.png", "image1.jpg", "image2.jpg", "image3.jpg", "image4.jpg", "image5.jpg", "image6.jpg"],
+    "s21": ["title.png", "text1.png", "text2.png", "text3.png", "image1.jpg", "image2.jpg", "image3.jpg", "image4.jpg", "image5.jpg"],
+    "s22": ["title.png", "image1.jpg", "image2.jpg", "image3.jpg", "image4.jpg", "image5.jpg"],
+    "s23": ["title.png", "image1.jpg"],
+    "s24": ["title.png", "endtitle.png", "endtext.png", "circle.png", "heart1.png", "heart2.png"],
+  }
+
+  for (let i = 1; i <= 55; i++) {
+    S["s24"].push("text" + i.toString() + ".png");
   }
 
   for (slide of Object.keys(S)) {
     for (image of S[slide]) {
       toLoad++;
-      console.log(slide + "/" + image);
+      //console.log(slide + "/" + image);
       let s = new Sprite(["assets/" + slide + "/min/" + image, "assets/" + slide + "/max/" + image]);
       s.upgrade(callback);
       sprites[slide + "/" + image.split(".")[0]] = s;
@@ -3238,17 +3832,26 @@ function preload_sprites(callback) {
   sprites["menu_icon"] = new Sprite(["assets/menu_icon.png"]);
   sprites["menu_icon"].upgrade(callback, "max");
 
+  sprites["play_icon"] = new Sprite(["assets/play_icon.png"]);
+  sprites["play_icon"].upgrade(callback, "max");
+
+  sprites["pause_icon"] = new Sprite(["assets/pause_icon.png"]);
+  sprites["pause_icon"].upgrade(callback, "max");
+
 
 }
 
 env.onload = () => {
+  env.camera.position.y = 25;
   create_slides();
   activeslide = slides[0];
   activeslide.on_activate();
 
+  let barypos = canvas.height / 2 - 10;
+
   entities.push(
     new Button(sprites["arrow_icon"], {
-      position: V2(-canvas.width / 2 + 40, 0),
+      position: V2(-35 * 1.5, barypos),
       size: V2(30, 30),
       depth: 100,
       onPress: () => prevslide(),
@@ -3260,7 +3863,7 @@ env.onload = () => {
 
   entities.push(
     new Button(sprites["arrow_icon"], {
-      position: V2(canvas.width / 2 - 40, 0),
+      position: V2(35 * 1.5, barypos),
       size: V2(30, 30),
       depth: 100,
       rotation: Math.PI * (3/2),
@@ -3272,10 +3875,21 @@ env.onload = () => {
 
   entities.push(
     new Button(sprites["menu_icon"], {
-      position: V2(canvas.width / 2 - 40, 40),
+      position: V2(-35/2, barypos),
       size: V2(30, 30),
       depth: 100,
-      onPress: () => switchslide(5 - 1),
+      onPress: () => switchslide(6 - 1),
+      hoverAnimation: new EnlargeLerpAnimation(undefined, 1.2, 0.3),
+      unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, 0.3)
+    })
+  );
+
+  entities.push(
+    new Button(sprites["play_icon"], {
+      position: V2(35/2, barypos),
+      size: V2(30, 30),
+      depth: 100,
+      onPress: () => {},
       hoverAnimation: new EnlargeLerpAnimation(undefined, 1.2, 0.3),
       unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, 0.3)
     })
@@ -3300,8 +3914,6 @@ function main() {
   });
 
   env.loader = new Loader();
-
-  console.log(env);
 
 
   env.tickInterval = setInterval(() => tick(), 1000 / env.tps);
