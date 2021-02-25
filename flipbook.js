@@ -1044,6 +1044,7 @@ function mouse_hover(event) {
 }
 
 function create_slides() {
+  console.log("create slides");
   let csize = V2(1000, 750);
   // slide size multiplier
   let ssm = (600 / 750) * 0.9;
@@ -3866,16 +3867,18 @@ function preload_sprites(callback) {
   }
 
   toLoad++;
-
   sprites["arrow_icon"] = new Sprite(["assets/arrow_icon.png"]);
   sprites["arrow_icon"].upgrade(callback, "max");
 
+  toLoad++;
   sprites["menu_icon"] = new Sprite(["assets/menu_icon.png"]);
   sprites["menu_icon"].upgrade(callback, "max");
 
+  toLoad++;
   sprites["play_icon"] = new Sprite(["assets/play_icon.png"]);
   sprites["play_icon"].upgrade(callback, "max");
 
+  toLoad++;
   sprites["pause_icon"] = new Sprite(["assets/pause_icon.png"]);
   sprites["pause_icon"].upgrade(callback, "max");
 
@@ -3883,6 +3886,7 @@ function preload_sprites(callback) {
 }
 
 env.onload = () => {
+  console.log("onload");
   env.camera.position.y = 25;
   create_slides();
   activeslide = slides[0];
@@ -3965,8 +3969,6 @@ function main() {
   canvas.addEventListener("mousemove", (event) => mouse_hover(event));
 
   sprites["gymvr_logo"].wait();
-
-  console.log("bruh");
   
   preload_sprites(() => {
     toLoad--;
