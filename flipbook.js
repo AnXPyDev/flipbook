@@ -1253,8 +1253,8 @@ function create_slides() {
     leftCanvasPos: true,
     activateAnimation: new CompoundAnimation([new SlideInLerpAnimation("up", tslm), new EnlargeLerpAnimation(0, 1, telm)]),
     activateDelay: iads * 0,
-    position: V2(73.140, 86.594),
-    width: 419.537
+    position: V2(60.714, 84.401),
+    width: 386.098
   }));
 
   s.add_entity(new ImageEnt(sprites["s4/text1"], s, {
@@ -1263,8 +1263,8 @@ function create_slides() {
     leftCanvasPos: true,
     activateAnimation: new SlideInLerpAnimation("left", tslm),
     activateDelay: iads * 1,
-    position: V2(79.642, 147.503),
-    width: 870.300
+    position: V2(60.714, 147.503),
+    width: 870.870
   }));
 
   s.add_entity(new ImageEnt(sprites["s4/text2"], s, {
@@ -1273,8 +1273,8 @@ function create_slides() {
     leftCanvasPos: true,
     activateAnimation: new SlideInLerpAnimation("left", tslm),
     activateDelay: iads * 2,
-    position: V2(79.642, 220.788),
-    width: 852.495
+    position: V2(60.714, 258.386),
+    width: 852.325
   }));
 
   s.add_entity(new ImageEnt(sprites["s4/text3"], s, {
@@ -1283,7 +1283,7 @@ function create_slides() {
     leftCanvasPos: true,
     activateAnimation: new SlideInLerpAnimation("left", tslm),
     activateDelay: iads * 3,
-    position: V2(79.642, 350.854),
+    position: V2(60.714, 369.510),
     width: 857.432
   }));
 
@@ -1293,7 +1293,7 @@ function create_slides() {
     leftCanvasPos: true,
     activateAnimation: new SlideInLerpAnimation("left", tslm),
     activateDelay: iads * 4,
-    position: V2(95.459, 423.184),
+    position: V2(75.256, 447.746),
     width: 829.376
   }));
 
@@ -1303,7 +1303,7 @@ function create_slides() {
     leftCanvasPos: true,
     activateAnimation: new SlideInLerpAnimation("left", tslm),
     activateDelay: iads * 4.5,
-    position: V2(95.459, 453.340),
+    position: V2(75.256, 473.340),
     width: 829.376
   }));
 
@@ -1317,7 +1317,7 @@ function create_slides() {
     depth: -1,
     topDepth: -1,
     activateDelay: iads * 5,
-    position: V2(79.642, 507.903),
+    position: V2(60.714, 540.657),
     width: 176.000
   }));
 
@@ -1900,8 +1900,8 @@ function create_slides() {
       leftCanvasPos: true,
       activateAnimation: new CompoundAnimation([new SlideInLerpAnimation("up", tslm), new EnlargeLerpAnimation(0, 1, telm)]),
       activateDelay: iads * 0,
-      position: V2(83.026, 68.481),
-      width: 303.625
+      position: V2(63.026, 68.481),
+      width: 340.625
     }));
   
     s.add_entity(new ImageEnt(sprites["s9/text1"], s, {
@@ -3942,7 +3942,11 @@ env.onload = () => {
       position: V2(-35/2, barypos),
       size: V2(30, 30),
       depth: 100,
-      onPress: () => switchslide(6 - 1),
+      onPress: () => {
+        switchslide(6 - 1);
+        pause();
+        play_button.set_state(0);
+      },
       hoverAnimation: new EnlargeLerpAnimation(undefined, 1.2, 0.3),
       unhoverAnimation: new EnlargeLerpAnimation(undefined, 1, 0.3)
     })
