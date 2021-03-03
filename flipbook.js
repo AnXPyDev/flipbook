@@ -979,7 +979,7 @@ function draw() {
 }
 
 function mouse_down(event) {
-  env.mouse = V2((event.pageX - canvas.offsetLeft) - canvas.width / 2 + env.camera.position.x, (event.pageY - canvas.offsetTop) + env.camera.position.y - canvas.height / 2);
+  env.mouse = V2((evne.layerX) - canvas.width / 2 + env.camera.position.x, (event.layerY) + env.camera.position.y - canvas.height / 2);
 
   entities.sort(function(a, b) {
     if (a.mdepth > b.mdepth) {
@@ -1001,7 +1001,7 @@ function mouse_down(event) {
 }
 
 function mouse_up(event) {
-  env.mouse = V2((event.pageX - canvas.offsetLeft) - canvas.width / 2 + env.camera.position.x, (event.pageY - canvas.offsetTop) + env.camera.position.y - canvas.height / 2);
+  env.mouse = V2((event.layerX) - canvas.width / 2 + env.camera.position.x, (event.layerY) + env.camera.position.y - canvas.height / 2);
 
   entities.sort(function(a, b) {
     if (a.mdepth > b.mdepth) {
@@ -1023,7 +1023,7 @@ function mouse_up(event) {
 }
 
 function mouse_hover(event) {
-  env.mouse = V2((event.pageX - canvas.offsetLeft) - canvas.width / 2 + env.camera.position.x, (event.pageY - canvas.offsetTop) + env.camera.position.y - canvas.height / 2);
+  env.mouse = V2((event.layerX) - canvas.width / 2 + env.camera.position.x, (event.layerY) + env.camera.position.y - canvas.height / 2);
 
   entities.sort(function(a, b) {
     if (a.mdepth > b.mdepth) {
