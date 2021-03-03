@@ -1,4 +1,3 @@
-
 {
 /** @type {HTMLCanvasElement} */
 const canvas = document.getElementById("flipbook-canvas");
@@ -1046,7 +1045,6 @@ function mouse_hover(event) {
 }
 
 function create_slides() {
-  console.log("create slides");
   let csize = V2(1000, 750);
   // slide size multiplier
   let ssm = (600 / 750) * 0.9;
@@ -3826,7 +3824,7 @@ let sprites = {};
 
 let toLoad = 0;
 
-const assetPath = "https://raw.githubusercontent.com/AnXPyDev/flipbook/prod/";
+const assetPath = "dokumenty/prezentacia/2021/img/";
 
 function preload_sprites(callback) {
 
@@ -3866,7 +3864,7 @@ function preload_sprites(callback) {
     for (image of S[slide]) {
       toLoad++;
       //console.log(slide + "/" + image);
-      let s = new Sprite([assetPath + "assets/" + slide + "/min/" + image, "assets/" + slide + "/max/" + image]);
+      let s = new Sprite([assetPath + "assets/" + slide + "/min/" + image, assetPath + "assets/" + slide + "/max/" + image]);
       s.upgrade(callback);
       sprites[slide + "/" + image.split(".")[0]] = s;
     }
@@ -3892,7 +3890,6 @@ function preload_sprites(callback) {
 }
 
 env.onload = () => {
-  console.log("onload");
   env.camera.position.y = 25;
   create_slides();
   activeslide = slides[0];
