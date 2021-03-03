@@ -1,3 +1,5 @@
+
+{
 /** @type {HTMLCanvasElement} */
 const canvas = document.getElementById("flipbook-canvas");
 
@@ -3824,7 +3826,11 @@ let sprites = {};
 
 let toLoad = 0;
 
+const assetPath = "https://raw.githubusercontent.com/AnXPyDev/flipbook/prod/";
+
 function preload_sprites(callback) {
+
+
   let S = {
     "s1": ["image1.png"],
     "s2": ["title.png", "text1.png", "text2.png", "text3.png", "text4.png", "text5.png", "image1.png", "image2.jpg"],
@@ -3860,26 +3866,26 @@ function preload_sprites(callback) {
     for (image of S[slide]) {
       toLoad++;
       //console.log(slide + "/" + image);
-      let s = new Sprite(["assets/" + slide + "/min/" + image, "assets/" + slide + "/max/" + image]);
+      let s = new Sprite([assetPath + "assets/" + slide + "/min/" + image, "assets/" + slide + "/max/" + image]);
       s.upgrade(callback);
       sprites[slide + "/" + image.split(".")[0]] = s;
     }
   }
 
   toLoad++;
-  sprites["arrow_icon"] = new Sprite(["assets/arrow_icon.png"]);
+  sprites["arrow_icon"] = new Sprite([assetPath + "assets/arrow_icon.png"]);
   sprites["arrow_icon"].upgrade(callback, "max");
 
   toLoad++;
-  sprites["menu_icon"] = new Sprite(["assets/menu_icon.png"]);
+  sprites["menu_icon"] = new Sprite([assetPath + "assets/menu_icon.png"]);
   sprites["menu_icon"].upgrade(callback, "max");
 
   toLoad++;
-  sprites["play_icon"] = new Sprite(["assets/play_icon.png"]);
+  sprites["play_icon"] = new Sprite([assetPath + "assets/play_icon.png"]);
   sprites["play_icon"].upgrade(callback, "max");
 
   toLoad++;
-  sprites["pause_icon"] = new Sprite(["assets/pause_icon.png"]);
+  sprites["pause_icon"] = new Sprite([assetPath + "assets/pause_icon.png"]);
   sprites["pause_icon"].upgrade(callback, "max");
 
 
@@ -3988,7 +3994,9 @@ function main() {
   requestAnimationFrame(drawCallback);
 }
 
-sprites["gymvr_logo"] = new Sprite(["assets/logo.png"]);
+sprites["gymvr_logo"] = new Sprite([assetPath + "assets/logo.png"]);
 sprites["gymvr_logo"].upgrade();
 
 window.onload = main;
+
+}
